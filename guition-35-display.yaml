@@ -1,29 +1,41 @@
-# Haupt-Konfiguration für Guition Display
+# Haupt-Konfiguration für Guition JC3248W535 Display
 substitutions:
-  device_name: guiton-touchscreen
-  friendly_name: Guiton Display
+  device_name: guition-display
+  friendly_name: Guition Display
   home_page: meine_lampen  # Startseite
 
 esphome:
   name: ${device_name}
   friendly_name: ${friendly_name}
 
-# Hardware-Config (passe an dein Board an)
-esp32:
-  board: esp32dev
-  framework:
-    type: arduino
-
-# Common: WiFi, API, OTA
-<<: !include common.yaml
-
-# Display & LVGL Layout
+# Hardware: ESP32-S3 + 3.5" Touch Display
 packages:
-  # LVGL Base (Pages, Fonts, Styles)
-  lvgl_layout: !include layouts/480x320.yaml
+  device: !include devices/JC3248W535.yaml
+  common: !include common.yaml
+  layout: !include layouts/480x320.yaml
   
   # Feature-Pages
   lampen: !include meine-lampen.yaml
   wetter: !include wetter.yaml
   temperaturen: !include temperaturen.yaml
   heizung: !include heizung.yaml
+
+# WiFi (aus secrets.yaml)
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  
+  # Fallback Access Point
+  ap:
+    ssid: "Guition Fallback"
+    password: "12345678"
+
+# Home Assistant API
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+# OTA Updates
+ota:
+  - platform: esphome
+    password: !secret ota_password
