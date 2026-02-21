@@ -64,7 +64,7 @@ lvgl:
                               action: climate.set_hvac_mode
                               data:
                                 entity_id: climate.sonoff1
-                                hvac_mode: heat  # Toggle mit Script besser
+                                hvac_mode: heat
               
               # Sonoff 2
               - obj:
@@ -244,7 +244,8 @@ packages:
         on_value:
           - lvgl.label.update:
               id: heizung1_mode
-              text: !lambda return x.c_str();
+              text: !lambda |-
+                return x.c_str();
       
       - platform: homeassistant
         id: heizung2_hvac_mode
@@ -252,7 +253,8 @@ packages:
         on_value:
           - lvgl.label.update:
               id: heizung2_mode
-              text: !lambda return x.c_str();
+              text: !lambda |-
+                return x.c_str();
       
       - platform: homeassistant
         id: heizung3_hvac_mode
@@ -260,4 +262,5 @@ packages:
         on_value:
           - lvgl.label.update:
               id: heizung3_mode
-              text: !lambda return x.c_str();
+              text: !lambda |-
+                return x.c_str();
