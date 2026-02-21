@@ -1,0 +1,125 @@
+# Minimale LVGL Layout Config - inkludiert Pages aus Root-YAMLs
+# Fonts und Styles müssen ggf. aus deinem Original-Repo kopiert werden
+
+font:
+  - file: "fonts/Roboto-Regular.ttf"  # Falls vorhanden
+    id: roboto_md
+    size: 20
+  - file: "fonts/Roboto-Regular.ttf"
+    id: roboto_xl
+    size: 32
+  - file: "fonts/Roboto-Regular.ttf"
+    id: roboto_xxl
+    size: 48
+  # MDI Icons für Material Design Icons
+  - file: "fonts/materialdesignicons-webfont.ttf"
+    id: mdi_md
+    size: 26
+    glyphs: [
+      "\U000F0335",  # Lightbulb
+      "\U000F0336",  # Lightbulb off
+      "\U000F06E8",  # Lightbulb on
+      "\U000F0141",  # Arrow left
+      "\U000F0142",  # Arrow right
+      "\U000F02DC",  # Home
+    ]
+  - file: "fonts/materialdesignicons-webfont.ttf"
+    id: mdi_lg
+    size: 34
+    glyphs: [
+      "\U000F0141",  # Arrow left
+      "\U000F0142",  # Arrow right
+      "\U000F02DC",  # Home
+    ]
+
+script:
+  - id: go_home
+    then:
+      - lvgl.page.show: ${home_page}
+
+lvgl:
+  log_level: WARN
+  color_depth: 16
+  bg_color: 0x000000
+  
+  # Default Font
+  default_font: roboto_md
+  
+  # Top Layer (Header + Footer Navigation)
+  top_layer:
+    widgets:
+      # Header
+      - obj:
+          id: header
+          width: 100%
+          height: 50
+          bg_color: 0x222222
+          border_width: 0
+          align: TOP_MID
+          widgets:
+            - label:
+                id: page_title
+                text: "Guiton Display"
+                text_font: roboto_xl
+                align: CENTER
+      
+      # Footer Navigation
+      - obj:
+          id: navbar
+          width: 100%
+          height: 50
+          border_width: 0
+          bg_color: 0xFF8C00  # Orange Navigation
+          align: BOTTOM_MID
+          layout:
+            type: FLEX
+            flex_flow: ROW
+            flex_align_main: CENTER
+            pad_column: 1
+          widgets:
+            - button:
+                flex_grow: 1
+                height: 100%
+                bg_color: 0xFF8C00
+                border_width: 0
+                on_press:
+                  - lvgl.page.previous:
+                widgets:
+                  - label:
+                      text: "\U000F0141"
+                      text_font: mdi_lg
+                      align: CENTER
+            - button:
+                flex_grow: 1
+                height: 100%
+                bg_color: 0xFF8C00
+                border_width: 0
+                on_press:
+                  - script.execute: go_home
+                widgets:
+                  - label:
+                      text: "\U000F02DC"
+                      text_font: mdi_lg
+                      align: CENTER
+            - button:
+                flex_grow: 1
+                height: 100%
+                bg_color: 0xFF8C00
+                border_width: 0
+                on_press:
+                  - lvgl.page.next:
+                widgets:
+                  - label:
+                      text: "\U000F0142"
+                      text_font: mdi_lg
+                      align: CENTER
+  
+  # Pages (werden aus Root-YAMLs geladen)
+  pages:
+    - id: splash
+      skip: true
+      on_load:
+        - script.execute: go_home
+    
+    # Hinweis: meine_lampen, wetter, temperaturen, heizung
+    # werden via packages in guition-35-display.yaml inkludiert
