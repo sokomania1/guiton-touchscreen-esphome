@@ -59,19 +59,14 @@ display:
     platform: mipi_spi
     model: JC3248W535
     spi_id: quad_spi
-    reset_pin:
-      number: 0
-      inverted: true
     data_rate: 40MHz
     update_interval: never
     auto_clear_enabled: false
 
 # Touchscreen (AXS15231)
+# TOUCH_RST = -1 (kein Reset-Pin laut Schaltplan)
+# TOUCH_INT = GPIO3 (Strapping-Pin, daher nicht als interrupt_pin verwenden)
 touchscreen:
   - id: main_touchscreen
     platform: axs15231
     i2c_id: i2c_bus
-    reset_pin:
-      number: 0
-      inverted: true
-    interrupt_pin: 3
