@@ -1,0 +1,29 @@
+# Haupt-Konfiguration für Guition Display
+substitutions:
+  device_name: guiton-touchscreen
+  friendly_name: Guiton Display
+  home_page: meine_lampen  # Startseite
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+
+# Hardware-Config (passe an dein Board an)
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Common: WiFi, API, OTA
+<<: !include common.yaml
+
+# Display & LVGL Layout
+packages:
+  # LVGL Base (Pages, Fonts, Styles)
+  lvgl_layout: !include layouts/480x320.yaml
+  
+  # Feature-Pages
+  lampen: !include meine-lampen.yaml
+  wetter: !include wetter.yaml
+  temperaturen: !include temperaturen.yaml
+  heizung: !include heizung.yaml
