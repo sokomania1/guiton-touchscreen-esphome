@@ -1,18 +1,17 @@
 # Minimale LVGL Layout Config - inkludiert Pages aus Root-YAMLs
-# Fonts und Styles müssen ggf. aus deinem Original-Repo kopiert werden
 
 font:
-  - file: "fonts/Roboto-Regular.ttf"  # Falls vorhanden
+  - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_md
     size: 20
-  - file: "fonts/Roboto-Regular.ttf"
+  - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_xl
     size: 32
-  - file: "fonts/Roboto-Regular.ttf"
+  - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_xxl
     size: 48
   # MDI Icons für Material Design Icons
-  - file: "fonts/materialdesignicons-webfont.ttf"
+  - file: layouts/fonts/materialdesignicons-webfont.ttf
     id: mdi_md
     size: 26
     glyphs: [
@@ -23,7 +22,7 @@ font:
       "\U000F0142",  # Arrow right
       "\U000F02DC",  # Home
     ]
-  - file: "fonts/materialdesignicons-webfont.ttf"
+  - file: layouts/fonts/materialdesignicons-webfont.ttf
     id: mdi_lg
     size: 34
     glyphs: [
