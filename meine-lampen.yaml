@@ -200,7 +200,7 @@ packages:
           - lvgl.label.update:
               id: alle_lichter_2_icon
               text_color: !lambda |-
-                return x ? 0xFF8C00 : 0x888888;
+                return lv_color_hex(x ? 0xFF8C00 : 0x888888);
       
       # Stehlampe Bibi
       - platform: homeassistant
@@ -210,7 +210,7 @@ packages:
           - lvgl.label.update:
               id: stehlampe_bibi_icon
               text_color: !lambda |-
-                return x ? 0xFF8C00 : 0x888888;
+                return lv_color_hex(x ? 0xFF8C00 : 0x888888);
       
       # Garderobe
       - platform: homeassistant
@@ -220,7 +220,7 @@ packages:
           - lvgl.label.update:
               id: garderobe_licht_icon
               text_color: !lambda |-
-                return x ? 0xFF8C00 : 0x888888;
+                return lv_color_hex(x ? 0xFF8C00 : 0x888888);
       
       # Wohnzimmerschrank
       - platform: homeassistant
@@ -230,7 +230,7 @@ packages:
           - lvgl.label.update:
               id: wohnzimmerschrank_icon
               text_color: !lambda |-
-                return x ? 0xFF8C00 : 0x888888;
+                return lv_color_hex(x ? 0xFF8C00 : 0x888888);
     
     sensor:
       # Brightness für Slider-Updates (Attribute)
@@ -242,7 +242,7 @@ packages:
           - lvgl.slider.update:
               id: stehlampe_bibi_slider
               value: !lambda |-
-                return x / 2.55;  # 0-255 -> 0-100
+                return x / 2.55;
       
       - platform: homeassistant
         id: garderobe_licht_brightness
