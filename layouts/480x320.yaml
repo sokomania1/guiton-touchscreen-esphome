@@ -1,4 +1,4 @@
-# Minimale LVGL Layout Config - inkludiert Pages aus Root-YAMLs
+# LVGL Layout Config mit Display-Verknüpfung
 
 font:
   - file: layouts/fonts/Roboto-Regular.ttf
@@ -40,6 +40,13 @@ lvgl:
   log_level: WARN
   color_depth: 16
   bg_color: 0x000000
+  
+  # KRITISCH: Display-Verknüpfung (IDs aus devices/JC3248W535.yaml)
+  displays:
+    - display_id: main_display
+  
+  touchscreens:
+    - touchscreen_id: main_touchscreen
   
   # Default Font
   default_font: roboto_md
