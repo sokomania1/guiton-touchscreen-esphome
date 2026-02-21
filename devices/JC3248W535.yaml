@@ -1,8 +1,8 @@
-# Hardware-Config für Guition JC3248W535 (ESP32-S3 + 3.5" Touch Display)
+# Hardware-Config fuer Guition JC3248W535 (ESP32-S3 + 3.5" Touch Display)
 esphome:
   platformio_options:
     upload_speed: 921600
-    board_build.flash_mode: dio
+    board_build.flash_mode: qio
     board_build.f_flash: 80000000L
     board_build.f_cpu: 240000000L
 
@@ -12,6 +12,7 @@ esp32:
   flash_size: 16MB
   framework:
     type: esp-idf
+    version: recommended
     sdkconfig_options:
       COMPILER_OPTIMIZATION_SIZE: y
       CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: y
@@ -19,25 +20,31 @@ esp32:
       CONFIG_ESP32S3_DATA_CACHE_LINE_64B: y
       CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
       CONFIG_SPIRAM_RODATA: y
+      CONFIG_ESP32S3_SPIRAM_SUPPORT: y
+      CONFIG_SPIRAM_USE_MALLOC: y
 
 psram:
   mode: octal
-  speed: 80MHz # 120MHz not supported, falls back to 40MHz
+  speed: 80MHz
 
 spi:
-  - type: quad
+  - id: quad_spi
+    type: quad
     clk_pin: 47
     data_pins: [21, 48, 40, 39]
 
 i2c:
-  - sda: 4
+  - id: i2c_bus
+    sda: 4
     scl: 8
+    frequency: 400kHz
 
 # Backlight PWM Control
 output:
   - id: gpio_backlight_pwm
     platform: ledc
     pin: 1
+    frequency: 1000Hz
 
 light:
   - id: backlight
@@ -51,6 +58,10 @@ display:
   - id: main_display
     platform: mipi_spi
     model: JC3248W535
+    spi_id: quad_spi
+    reset_pin:
+      number: 0
+      inverted: true
     data_rate: 40MHz
     update_interval: never
     auto_clear_enabled: false
@@ -59,12 +70,8 @@ display:
 touchscreen:
   - id: main_touchscreen
     platform: axs15231
-    # Debug Touch Coordinates (uncomment for calibration):
-    # on_touch:
-    #   - lambda: |-
-    #       ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
-    #         touch.x,
-    #         touch.y,
-    #         touch.x_raw,
-    #         touch.y_raw
-    #       );
+    i2c_id: i2c_bus
+    reset_pin:
+      number: 0
+      inverted: true
+    interrupt_pin: 3
