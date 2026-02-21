@@ -28,7 +28,7 @@ lvgl:
               pad_column: 8
               pad_row: 8
             widgets:
-              # Alle Lichter (breit, ohne Slider für Gruppe)
+              # Alle Lichter (breit, ohne Slider fuer Gruppe)
               - button:
                   id: alle_lichter_2_btn
                   width: 100%
@@ -98,7 +98,8 @@ lvgl:
                               action: light.turn_on
                               data:
                                 entity_id: light.stehlampe_bibi
-                                brightness_pct: !lambda return (int)x;
+                                brightness_pct: !lambda |-
+                                  return (int)x;
 
               # Garderobe Licht (mit Slider)
               - obj:
@@ -141,12 +142,12 @@ lvgl:
                         min_value: 0
                         max_value: 100
                         on_release:
-
                           - homeassistant.action:
                               action: light.turn_on
                               data:
                                 entity_id: light.garderobe_licht
-                                brightness_pct: !lambda return (int)x;
+                                brightness_pct: !lambda |-
+                                  return (int)x;
 
               # Wohnzimmerschrank (mit Slider)
               - obj:
@@ -193,9 +194,10 @@ lvgl:
                               action: light.turn_on
                               data:
                                 entity_id: light.licht_wohnzimmerschrank
-                                brightness_pct: !lambda return (int)x;
+                                brightness_pct: !lambda |-
+                                  return (int)x;
 
-# Sensoren für State-Updates
+# Sensoren fuer State-Updates
 binary_sensor:
   # Alle Lichter
   - platform: homeassistant
@@ -204,7 +206,8 @@ binary_sensor:
     on_state:
       - lvgl.label.update:
           id: alle_lichter_2_icon
-          text_color: !lambda return lv_color_hex(x ? 0xFF8C00 : 0x888888);
+          text_color: !lambda |-
+            return lv_color_hex(x ? 0xFF8C00 : 0x888888);
 
   # Stehlampe Bibi
   - platform: homeassistant
@@ -213,7 +216,8 @@ binary_sensor:
     on_state:
       - lvgl.label.update:
           id: stehlampe_bibi_icon
-          text_color: !lambda return lv_color_hex(x ? 0xFF8C00 : 0x888888);
+          text_color: !lambda |-
+            return lv_color_hex(x ? 0xFF8C00 : 0x888888);
 
   # Garderobe
   - platform: homeassistant
@@ -222,7 +226,8 @@ binary_sensor:
     on_state:
       - lvgl.label.update:
           id: garderobe_licht_icon
-          text_color: !lambda return lv_color_hex(x ? 0xFF8C00 : 0x888888);
+          text_color: !lambda |-
+            return lv_color_hex(x ? 0xFF8C00 : 0x888888);
 
   # Wohnzimmerschrank
   - platform: homeassistant
@@ -231,10 +236,11 @@ binary_sensor:
     on_state:
       - lvgl.label.update:
           id: wohnzimmerschrank_icon
-          text_color: !lambda return lv_color_hex(x ? 0xFF8C00 : 0x888888);
+          text_color: !lambda |-
+            return lv_color_hex(x ? 0xFF8C00 : 0x888888);
 
 sensor:
-  # Brightness für Slider-Updates (Attribute)
+  # Brightness fuer Slider-Updates (Attribute)
   - platform: homeassistant
     id: stehlampe_bibi_brightness
     entity_id: light.stehlampe_bibi
@@ -242,7 +248,8 @@ sensor:
     on_value:
       - lvgl.slider.update:
           id: stehlampe_bibi_slider
-          value: !lambda return x / 2.55;
+          value: !lambda |-
+            return x / 2.55;
 
   - platform: homeassistant
     id: garderobe_licht_brightness
@@ -251,7 +258,8 @@ sensor:
     on_value:
       - lvgl.slider.update:
           id: garderobe_licht_slider
-          value: !lambda return x / 2.55;
+          value: !lambda |-
+            return x / 2.55;
 
   - platform: homeassistant
     id: wohnzimmerschrank_brightness
@@ -260,4 +268,5 @@ sensor:
     on_value:
       - lvgl.slider.update:
           id: wohnzimmerschrank_slider
-          value: !lambda return x / 2.55;
+          value: !lambda |-
+            return x / 2.55;
