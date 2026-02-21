@@ -4,38 +4,39 @@ font:
   - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_md
     size: 20
-    glyphs: |
-      !"%()+,-_.:*=°°?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÄÖÜäöüß@&'`´|/¡¿°âêîôûàèìòùáéíóúãñç
+    glyphs: >
+      !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
   - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_xl
     size: 32
-    glyphs: |
-      !"%()+,-_.:*=°°?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÄÖÜäöüß@&'`´|/¡¿°âêîôûàèìòùáéíóúãñç
+    glyphs: >
+      !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
   - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_xxl
     size: 48
-    glyphs: |
-      !"%()+,-_.:*=°°?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÄÖÜäöüß@&'`´|/¡¿°âêîôûàèìòùáéíóúãñç
+    glyphs: >
+      !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
   # MDI Icons für Material Design Icons
   - file: layouts/fonts/materialdesignicons-webfont.ttf
     id: mdi_md
     size: 26
-    glyphs: [
-      "\U000F0335",  # Lightbulb
-      "\U000F0336",  # Lightbulb off
-      "\U000F06E8",  # Lightbulb on
-      "\U000F0141",  # Arrow left
-      "\U000F0142",  # Arrow right
-      "\U000F02DC",  # Home
-    ]
+    glyphs:
+      - "\U000F0335"  # Lightbulb
+      - "\U000F0336"  # Lightbulb off
+      - "\U000F06E8"  # Lightbulb on
+      - "\U000F0141"  # Arrow left
+      - "\U000F0142"  # Arrow right
+      - "\U000F02DC"  # Home
   - file: layouts/fonts/materialdesignicons-webfont.ttf
     id: mdi_lg
     size: 34
-    glyphs: [
-      "\U000F0141",  # Arrow left
-      "\U000F0142",  # Arrow right
-      "\U000F02DC",  # Home
-    ]
+    glyphs:
+      - "\U000F0141"  # Arrow left
+      - "\U000F0142"  # Arrow right
+      - "\U000F02DC"  # Home
 
 script:
   - id: go_home
@@ -48,10 +49,10 @@ lvgl:
   touchscreens: main_touchscreen
   color_depth: 16
   bg_color: 0x000000
-  
+
   # Default Font
   default_font: roboto_md
-  
+
   # Top Layer (Header + Footer Navigation)
   top_layer:
     widgets:
@@ -69,7 +70,7 @@ lvgl:
                 text: "Guiton Display"
                 text_font: roboto_xl
                 align: CENTER
-      
+
       # Footer Navigation
       - obj:
           id: navbar
@@ -120,13 +121,13 @@ lvgl:
                       text: "\U000F0142"
                       text_font: mdi_lg
                       align: CENTER
-  
+
   # Pages (werden aus Root-YAMLs geladen)
   pages:
     - id: splash
       skip: true
       on_load:
         - script.execute: go_home
-    
+
     # Hinweis: meine_lampen, wetter, temperaturen, heizung
     # werden via packages in guition-35-display.yaml inkludiert

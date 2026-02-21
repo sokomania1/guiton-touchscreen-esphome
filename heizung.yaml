@@ -12,6 +12,8 @@ lvgl:
             bg_color: 0x2C0000
             border_width: 0
             pad_all: 10
+            pad_top: 60
+            pad_bottom: 60
             width: 100%
             height: 100%
             layout:
@@ -28,24 +30,24 @@ lvgl:
                   border_color: 0xFF8C00
                   border_width: 2
                   radius: 8
-                  pad_all: 10
+                  pad_all: 8
                   layout:
                     type: FLEX
                     flex_flow: COLUMN
                     flex_align_main: SPACE_AROUND
                   widgets:
                     - label:
-                        text: "🔥 Sonoff 1"
+                        text: "Sonoff 1"
                         text_font: roboto_md
                         text_color: 0xFFFFFF
                     - label:
                         id: heizung1_temp
-                        text: "20.0°C"
+                        text: "20.0\u00b0C"
                         text_font: roboto_xl
                         text_color: 0xFF8C00
                     - label:
                         id: heizung1_target
-                        text: "Soll: 22°C"
+                        text: "Soll: 22\u00b0C"
                         text_color: 0xCCCCCC
                     - label:
                         id: heizung1_mode
@@ -65,7 +67,7 @@ lvgl:
                               data:
                                 entity_id: climate.sonoff1
                                 hvac_mode: heat
-              
+
               # Sonoff 2
               - obj:
                   width: 31%
@@ -74,24 +76,24 @@ lvgl:
                   border_color: 0xFF8C00
                   border_width: 2
                   radius: 8
-                  pad_all: 10
+                  pad_all: 8
                   layout:
                     type: FLEX
                     flex_flow: COLUMN
                     flex_align_main: SPACE_AROUND
                   widgets:
                     - label:
-                        text: "🔥 Sonoff 2"
+                        text: "Sonoff 2"
                         text_font: roboto_md
                         text_color: 0xFFFFFF
                     - label:
                         id: heizung2_temp
-                        text: "20.0°C"
+                        text: "20.0\u00b0C"
                         text_font: roboto_xl
                         text_color: 0xFF8C00
                     - label:
                         id: heizung2_target
-                        text: "Soll: 22°C"
+                        text: "Soll: 22\u00b0C"
                         text_color: 0xCCCCCC
                     - label:
                         id: heizung2_mode
@@ -111,7 +113,7 @@ lvgl:
                               data:
                                 entity_id: climate.sonoff2
                                 hvac_mode: heat
-              
+
               # Sonoff 3
               - obj:
                   width: 31%
@@ -120,24 +122,24 @@ lvgl:
                   border_color: 0xFF8C00
                   border_width: 2
                   radius: 8
-                  pad_all: 10
+                  pad_all: 8
                   layout:
                     type: FLEX
                     flex_flow: COLUMN
                     flex_align_main: SPACE_AROUND
                   widgets:
                     - label:
-                        text: "🔥 Sonoff 3"
+                        text: "Sonoff 3"
                         text_font: roboto_md
                         text_color: 0xFFFFFF
                     - label:
                         id: heizung3_temp
-                        text: "20.0°C"
+                        text: "20.0\u00b0C"
                         text_font: roboto_xl
                         text_color: 0xFF8C00
                     - label:
                         id: heizung3_target
-                        text: "Soll: 22°C"
+                        text: "Soll: 22\u00b0C"
                         text_color: 0xCCCCCC
                     - label:
                         id: heizung3_mode
@@ -158,109 +160,104 @@ lvgl:
                                 entity_id: climate.sonoff3
                                 hvac_mode: heat
 
-packages:
-  heizung_sensors:
-    sensor:
-      # Sonoff 1
-      - platform: homeassistant
-        id: heizung1_current_temp
-        entity_id: climate.sonoff1
-        attribute: current_temperature
-        on_value:
-          - lvgl.label.update:
-              id: heizung1_temp
-              text: !lambda |-
-                char buf[16];
-                sprintf(buf, "%.1f°C", x);
-                return buf;
-      
-      - platform: homeassistant
-        id: heizung1_target_temp
-        entity_id: climate.sonoff1
-        attribute: temperature
-        on_value:
-          - lvgl.label.update:
-              id: heizung1_target
-              text: !lambda |-
-                char buf[16];
-                sprintf(buf, "Soll: %.0f°C", x);
-                return buf;
-      
-      # Sonoff 2
-      - platform: homeassistant
-        id: heizung2_current_temp
-        entity_id: climate.sonoff2
-        attribute: current_temperature
-        on_value:
-          - lvgl.label.update:
-              id: heizung2_temp
-              text: !lambda |-
-                char buf[16];
-                sprintf(buf, "%.1f°C", x);
-                return buf;
-      
-      - platform: homeassistant
-        id: heizung2_target_temp
-        entity_id: climate.sonoff2
-        attribute: temperature
-        on_value:
-          - lvgl.label.update:
-              id: heizung2_target
-              text: !lambda |-
-                char buf[16];
-                sprintf(buf, "Soll: %.0f°C", x);
-                return buf;
-      
-      # Sonoff 3
-      - platform: homeassistant
-        id: heizung3_current_temp
-        entity_id: climate.sonoff3
-        attribute: current_temperature
-        on_value:
-          - lvgl.label.update:
-              id: heizung3_temp
-              text: !lambda |-
-                char buf[16];
-                sprintf(buf, "%.1f°C", x);
-                return buf;
-      
-      - platform: homeassistant
-        id: heizung3_target_temp
-        entity_id: climate.sonoff3
-        attribute: temperature
-        on_value:
-          - lvgl.label.update:
-              id: heizung3_target
-              text: !lambda |-
-                char buf[16];
-                sprintf(buf, "Soll: %.0f°C", x);
-                return buf;
-    
-    text_sensor:
-      # HVAC Mode (Auto/Heat/Off)
-      - platform: homeassistant
-        id: heizung1_hvac_mode
-        entity_id: climate.sonoff1
-        on_value:
-          - lvgl.label.update:
-              id: heizung1_mode
-              text: !lambda |-
-                return x.c_str();
-      
-      - platform: homeassistant
-        id: heizung2_hvac_mode
-        entity_id: climate.sonoff2
-        on_value:
-          - lvgl.label.update:
-              id: heizung2_mode
-              text: !lambda |-
-                return x.c_str();
-      
-      - platform: homeassistant
-        id: heizung3_hvac_mode
-        entity_id: climate.sonoff3
-        on_value:
-          - lvgl.label.update:
-              id: heizung3_mode
-              text: !lambda |-
-                return x.c_str();
+sensor:
+  # Sonoff 1
+  - platform: homeassistant
+    id: heizung1_current_temp
+    entity_id: climate.sonoff1
+    attribute: current_temperature
+    on_value:
+      - lvgl.label.update:
+          id: heizung1_temp
+          text: !lambda |-
+            char buf[16];
+            sprintf(buf, "%.1f\u00b0C", x);
+            return buf;
+
+  - platform: homeassistant
+    id: heizung1_target_temp
+    entity_id: climate.sonoff1
+    attribute: temperature
+    on_value:
+      - lvgl.label.update:
+          id: heizung1_target
+          text: !lambda |-
+            char buf[16];
+            sprintf(buf, "Soll: %.0f\u00b0C", x);
+            return buf;
+
+  # Sonoff 2
+  - platform: homeassistant
+    id: heizung2_current_temp
+    entity_id: climate.sonoff2
+    attribute: current_temperature
+    on_value:
+      - lvgl.label.update:
+          id: heizung2_temp
+          text: !lambda |-
+            char buf[16];
+            sprintf(buf, "%.1f\u00b0C", x);
+            return buf;
+
+  - platform: homeassistant
+    id: heizung2_target_temp
+    entity_id: climate.sonoff2
+    attribute: temperature
+    on_value:
+      - lvgl.label.update:
+          id: heizung2_target
+          text: !lambda |-
+            char buf[16];
+            sprintf(buf, "Soll: %.0f\u00b0C", x);
+            return buf;
+
+  # Sonoff 3
+  - platform: homeassistant
+    id: heizung3_current_temp
+    entity_id: climate.sonoff3
+    attribute: current_temperature
+    on_value:
+      - lvgl.label.update:
+          id: heizung3_temp
+          text: !lambda |-
+            char buf[16];
+            sprintf(buf, "%.1f\u00b0C", x);
+            return buf;
+
+  - platform: homeassistant
+    id: heizung3_target_temp
+    entity_id: climate.sonoff3
+    attribute: temperature
+    on_value:
+      - lvgl.label.update:
+          id: heizung3_target
+          text: !lambda |-
+            char buf[16];
+            sprintf(buf, "Soll: %.0f\u00b0C", x);
+            return buf;
+
+text_sensor:
+  # HVAC Mode (Auto/Heat/Off)
+  - platform: homeassistant
+    id: heizung1_hvac_mode
+    entity_id: climate.sonoff1
+    on_value:
+      - lvgl.label.update:
+          id: heizung1_mode
+          text: !lambda return x.c_str();
+
+  - platform: homeassistant
+    id: heizung2_hvac_mode
+    entity_id: climate.sonoff2
+    on_value:
+      - lvgl.label.update:
+          id: heizung2_mode
+          text: !lambda return x.c_str();
+
+  - platform: homeassistant
+    id: heizung3_hvac_mode
+    entity_id: climate.sonoff3
+    on_value:
+      - lvgl.label.update:
+          id: heizung3_mode
+          text: !lambda return x.c_str();
