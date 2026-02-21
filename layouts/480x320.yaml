@@ -4,21 +4,15 @@ font:
   - file: "gfonts://Roboto@400"
     id: roboto_md
     size: 20
-    glyphs: >
-      !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-      abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
+    glyphs: "!\"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzß@&'`|/"
   - file: "gfonts://Roboto@400"
     id: roboto_xl
     size: 32
-    glyphs: >
-      !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-      abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
+    glyphs: "!\"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzß@&'`|/"
   - file: "gfonts://Roboto@400"
     id: roboto_xxl
     size: 48
-    glyphs: >
-      !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
-      abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
+    glyphs: "!\"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzß@&'`|/"
   # MDI Icons via URL
   - file: "https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf"
     id: mdi_md
