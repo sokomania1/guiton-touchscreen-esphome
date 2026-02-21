@@ -4,12 +4,18 @@ font:
   - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_md
     size: 20
+    glyphs: |
+      !"%()+,-_.:*=°°?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÄÖÜäöüß@&'`´|/¡¿°âêîôûàèìòùáéíóúãñç
   - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_xl
     size: 32
+    glyphs: |
+      !"%()+,-_.:*=°°?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÄÖÜäöüß@&'`´|/¡¿°âêîôûàèìòùáéíóúãñç
   - file: layouts/fonts/Roboto-Regular.ttf
     id: roboto_xxl
     size: 48
+    glyphs: |
+      !"%()+,-_.:*=°°?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÄÖÜäöüß@&'`´|/¡¿°âêîôûàèìòùáéíóúãñç
   # MDI Icons für Material Design Icons
   - file: layouts/fonts/materialdesignicons-webfont.ttf
     id: mdi_md
@@ -38,12 +44,10 @@ script:
 
 lvgl:
   log_level: WARN
-  color_depth: 16
-  bg_color: 0x000000
-  
-  # Display-Verknüpfung (alte Syntax für ESPHome 2025.11.0)
   displays: main_display
   touchscreens: main_touchscreen
+  color_depth: 16
+  bg_color: 0x000000
   
   # Default Font
   default_font: roboto_md
