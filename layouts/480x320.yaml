@@ -1,22 +1,19 @@
 # LVGL Layout Config mit Display-Verknüpfung
 
 font:
-  - file: "gfonts://Roboto"
-    weight: 400
+  - file: "gfonts://Roboto@400"
     id: roboto_md
     size: 20
     glyphs: >
       !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
       abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
-  - file: "gfonts://Roboto"
-    weight: 400
+  - file: "gfonts://Roboto@400"
     id: roboto_xl
     size: 32
     glyphs: >
       !"%()+,-_.:*=?~# 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
       abcdefghijklmnopqrstuvwxyzAOUaouß@&'`|/
-  - file: "gfonts://Roboto"
-    weight: 400
+  - file: "gfonts://Roboto@400"
     id: roboto_xxl
     size: 48
     glyphs: >
