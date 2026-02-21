@@ -42,7 +42,7 @@ lvgl:
                         id: alle_lichter_2_icon
                         text: "⚡"
                         text_font: roboto_xl
-                        align: LEFT
+                        align: LEFT_MID
                         text_color: 0xFF8C00
                     - label:
                         text: Alle Lichter
