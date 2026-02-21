@@ -41,12 +41,9 @@ lvgl:
   color_depth: 16
   bg_color: 0x000000
   
-  # KRITISCH: Display-Verknüpfung (IDs aus devices/JC3248W535.yaml)
-  displays:
-    - display_id: main_display
-  
-  touchscreens:
-    - touchscreen_id: main_touchscreen
+  # Display-Verknüpfung (alte Syntax für ESPHome 2025.11.0)
+  displays: main_display
+  touchscreens: main_touchscreen
   
   # Default Font
   default_font: roboto_md
