@@ -1,0 +1,178 @@
+# Temperaturen-Seite (alle sensor.snf_xxx_temperature)
+lvgl:
+  pages:
+    - id: temperaturen
+      bg_color: 0x1A1A1A
+      on_load:
+        - lvgl.label.update:
+            id: page_title
+            text: Raumtemperaturen
+      widgets:
+        - obj:
+            bg_color: 0x1A1A1A
+            border_width: 0
+            pad_all: 10
+            width: 100%
+            height: 100%
+            layout:
+              type: FLEX
+              flex_flow: COLUMN_WRAP
+              flex_align_main: START
+              pad_column: 8
+              pad_row: 8
+            widgets:
+              # Platzhalter für 6 Sensoren (32% breit, 3 Spalten)
+              # Sensor 1
+              - obj:
+                  width: 32%
+                  height: 70
+                  bg_color: 0x2C2C2C
+                  border_color: 0xFF8C00
+                  border_width: 1
+                  radius: 8
+                  pad_all: 8
+                  widgets:
+                    - label:
+                        text: "🏚️ Sensor 1"
+                        text_color: 0xFFFFFF
+                        align: TOP_LEFT
+                    - label:
+                        id: temp_sensor_1
+                        text: "--°C"
+                        text_font: roboto_xl
+                        text_color: 0x00FF00
+                        align: BOTTOM_RIGHT
+              
+              # Sensor 2
+              - obj:
+                  width: 32%
+                  height: 70
+                  bg_color: 0x2C2C2C
+                  border_color: 0xFF8C00
+                  border_width: 1
+                  radius: 8
+                  pad_all: 8
+                  widgets:
+                    - label:
+                        text: "🏚️ Sensor 2"
+                        text_color: 0xFFFFFF
+                        align: TOP_LEFT
+                    - label:
+                        id: temp_sensor_2
+                        text: "--°C"
+                        text_font: roboto_xl
+                        text_color: 0x00FF00
+                        align: BOTTOM_RIGHT
+              
+              # Sensor 3
+              - obj:
+                  width: 32%
+                  height: 70
+                  bg_color: 0x2C2C2C
+                  border_color: 0xFF8C00
+                  border_width: 1
+                  radius: 8
+                  pad_all: 8
+                  widgets:
+                    - label:
+                        text: "🏚️ Sensor 3"
+                        text_color: 0xFFFFFF
+                        align: TOP_LEFT
+                    - label:
+                        id: temp_sensor_3
+                        text: "--°C"
+                        text_font: roboto_xl
+                        text_color: 0x00FF00
+                        align: BOTTOM_RIGHT
+              
+              # Sensor 4
+              - obj:
+                  width: 32%
+                  height: 70
+                  bg_color: 0x2C2C2C
+                  border_color: 0xFF8C00
+                  border_width: 1
+                  radius: 8
+                  pad_all: 8
+                  widgets:
+                    - label:
+                        text: "🏚️ Sensor 4"
+                        text_color: 0xFFFFFF
+                        align: TOP_LEFT
+                    - label:
+                        id: temp_sensor_4
+                        text: "--°C"
+                        text_font: roboto_xl
+                        text_color: 0x00FF00
+                        align: BOTTOM_RIGHT
+              
+              # Sensor 5
+              - obj:
+                  width: 32%
+                  height: 70
+                  bg_color: 0x2C2C2C
+                  border_color: 0xFF8C00
+                  border_width: 1
+                  radius: 8
+                  pad_all: 8
+                  widgets:
+                    - label:
+                        text: "🏚️ Sensor 5"
+                        text_color: 0xFFFFFF
+                        align: TOP_LEFT
+                    - label:
+                        id: temp_sensor_5
+                        text: "--°C"
+                        text_font: roboto_xl
+                        text_color: 0x00FF00
+                        align: BOTTOM_RIGHT
+              
+              # Sensor 6
+              - obj:
+                  width: 32%
+                  height: 70
+                  bg_color: 0x2C2C2C
+                  border_color: 0xFF8C00
+                  border_width: 1
+                  radius: 8
+                  pad_all: 8
+                  widgets:
+                    - label:
+                        text: "🏚️ Sensor 6"
+                        text_color: 0xFFFFFF
+                        align: TOP_LEFT
+                    - label:
+                        id: temp_sensor_6
+                        text: "--°C"
+                        text_font: roboto_xl
+                        text_color: 0x00FF00
+                        align: BOTTOM_RIGHT
+
+packages:
+  temperaturen_sensors:
+    sensor:
+      # Ersetze entity_id mit deinen sensor.snf_xxx_temperature
+      - platform: homeassistant
+        id: snf_temp_1
+        entity_id: sensor.snf_wohnzimmer_temperature  # Beispiel
+        on_value:
+          - lvgl.label.update:
+              id: temp_sensor_1
+              text: !lambda |-
+                char buf[16];
+                sprintf(buf, "%.1f°C", x);
+                return buf;
+      
+      - platform: homeassistant
+        id: snf_temp_2
+        entity_id: sensor.snf_kueche_temperature  # Beispiel
+        on_value:
+          - lvgl.label.update:
+              id: temp_sensor_2
+              text: !lambda |-
+                char buf[16];
+                sprintf(buf, "%.1f°C", x);
+                return buf;
+      
+      # Füge weitere Sensoren hinzu (snf_temp_3 bis snf_temp_6)
+      # Suche in esphome_entities.json nach allen sensor.snf_*_temperature

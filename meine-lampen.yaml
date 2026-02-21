@@ -1,0 +1,255 @@
+# Lampenseite mit Dimmer-Slider und Orange Theme
+lvgl:
+  pages:
+    - id: meine_lampen
+      bg_color: 0x000000
+      pad_all: 0
+      on_load:
+        - lvgl.label.update:
+            id: page_title
+            text: Meine Lampen
+      widgets:
+        - obj:
+            bg_color: 0x000000
+            border_width: 0
+            pad_all: 0
+            pad_top: 50
+            pad_bottom: 50
+            pad_left: 6
+            pad_right: 6
+            width: 100%
+            height: 100%
+            layout:
+              type: FLEX
+              flex_flow: COLUMN_WRAP
+              flex_align_main: START
+              flex_align_cross: START
+              flex_align_track: START
+              pad_column: 8
+              pad_row: 8
+            widgets:
+              # Alle Lichter (breit, ohne Slider für Gruppe)
+              - button:
+                  id: alle_lichter_2_btn
+                  width: 100%
+                  height: 86
+                  bg_color: 0x42495A
+                  border_color: 0xFF8C00
+                  border_width: 2
+                  radius: 8
+                  widgets:
+                    - label:
+                        id: alle_lichter_2_icon
+                        text: "⚡"
+                        text_font: roboto_xl
+                        align: CENTER_LEFT
+                        text_color: 0xFF8C00
+                    - label:
+                        text: Alle Lichter
+                        align: BOTTOM_CENTER
+                  on_short_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.alle_lichter_2
+
+              # Stehlampe Bibi (mit Slider)
+              - obj:
+                  width: 49%
+                  height: 130
+                  layout:
+                    type: FLEX
+                    flex_flow: COLUMN
+                  widgets:
+                    - button:
+                        id: stehlampe_bibi_btn
+                        width: 100%
+                        height: 86
+                        bg_color: 0x42495A
+                        border_color: 0xFF8C00
+                        border_width: 2
+                        radius: 8
+                        widgets:
+                          - label:
+                              id: stehlampe_bibi_icon
+                              text: "💡"
+                              text_font: roboto_md
+                              align: TOP_LEFT
+                          - label:
+                              text: Stehlampe Bibi
+                              align: BOTTOM_CENTER
+                        on_short_click:
+                          - homeassistant.action:
+                              action: light.toggle
+                              data:
+                                entity_id: light.stehlampe_bibi
+                    - slider:
+                        id: stehlampe_bibi_slider
+                        width: 100%
+                        height: 30
+                        min_value: 0
+                        max_value: 100
+                        bg_color: 0xFF8C00
+                        on_release:
+                          - homeassistant.action:
+                              action: light.turn_on
+                              data:
+                                entity_id: light.stehlampe_bibi
+                                brightness_pct: !lambda return (int)x;
+
+              # Garderobe Licht (mit Slider)
+              - obj:
+                  width: 49%
+                  height: 130
+                  layout:
+                    type: FLEX
+                    flex_flow: COLUMN
+                  widgets:
+                    - button:
+                        id: garderobe_licht_btn
+                        width: 100%
+                        height: 86
+                        bg_color: 0x42495A
+                        border_color: 0xFF8C00
+                        border_width: 2
+                        radius: 8
+                        widgets:
+                          - label:
+                              id: garderobe_licht_icon
+                              text: "💡"
+                              text_font: roboto_md
+                              align: TOP_LEFT
+                          - label:
+                              text: Garderobe
+                              align: BOTTOM_CENTER
+                        on_short_click:
+                          - homeassistant.action:
+                              action: light.toggle
+                              data:
+                                entity_id: light.garderobe_licht
+                    - slider:
+                        id: garderobe_licht_slider
+                        width: 100%
+                        height: 30
+                        min_value: 0
+                        max_value: 100
+                        bg_color: 0xFF8C00
+                        on_release:
+                          - homeassistant.action:
+                              action: light.turn_on
+                              data:
+                                entity_id: light.garderobe_licht
+                                brightness_pct: !lambda return (int)x;
+
+              # Wohnzimmerschrank (mit Slider)
+              - obj:
+                  width: 49%
+                  height: 130
+                  layout:
+                    type: FLEX
+                    flex_flow: COLUMN
+                  widgets:
+                    - button:
+                        id: wohnzimmerschrank_btn
+                        width: 100%
+                        height: 86
+                        bg_color: 0x42495A
+                        border_color: 0xFF8C00
+                        border_width: 2
+                        radius: 8
+                        widgets:
+                          - label:
+                              id: wohnzimmerschrank_icon
+                              text: "💡"
+                              text_font: roboto_md
+                              align: TOP_LEFT
+                          - label:
+                              text: Wohnzimmer
+                              align: BOTTOM_CENTER
+                        on_short_click:
+                          - homeassistant.action:
+                              action: light.toggle
+                              data:
+                                entity_id: light.licht_wohnzimmerschrank
+                    - slider:
+                        id: wohnzimmerschrank_slider
+                        width: 100%
+                        height: 30
+                        min_value: 0
+                        max_value: 100
+                        bg_color: 0xFF8C00
+                        on_release:
+                          - homeassistant.action:
+                              action: light.turn_on
+                              data:
+                                entity_id: light.licht_wohnzimmerschrank
+                                brightness_pct: !lambda return (int)x;
+
+# Sensoren für State-Updates
+packages:
+  lampen_sensors:
+    binary_sensor:
+      # Alle Lichter
+      - platform: homeassistant
+        id: alle_lichter_2_state
+        entity_id: light.alle_lichter_2
+        on_state:
+          - lvgl.label.update:
+              id: alle_lichter_2_icon
+              text_color: !lambda return x ? 0xFF8C00 : 0x888888;
+      
+      # Stehlampe Bibi
+      - platform: homeassistant
+        id: stehlampe_bibi_state
+        entity_id: light.stehlampe_bibi
+        on_state:
+          - lvgl.label.update:
+              id: stehlampe_bibi_icon
+              text_color: !lambda return x ? 0xFF8C00 : 0x888888;
+      
+      # Garderobe
+      - platform: homeassistant
+        id: garderobe_licht_state
+        entity_id: light.garderobe_licht
+        on_state:
+          - lvgl.label.update:
+              id: garderobe_licht_icon
+              text_color: !lambda return x ? 0xFF8C00 : 0x888888;
+      
+      # Wohnzimmerschrank
+      - platform: homeassistant
+        id: wohnzimmerschrank_state
+        entity_id: light.licht_wohnzimmerschrank
+        on_state:
+          - lvgl.label.update:
+              id: wohnzimmerschrank_icon
+              text_color: !lambda return x ? 0xFF8C00 : 0x888888;
+    
+    sensor:
+      # Brightness für Slider-Updates (Attribute)
+      - platform: homeassistant
+        id: stehlampe_bibi_brightness
+        entity_id: light.stehlampe_bibi
+        attribute: brightness
+        on_value:
+          - lvgl.slider.update:
+              id: stehlampe_bibi_slider
+              value: !lambda return x / 2.55;  # 0-255 -> 0-100
+      
+      - platform: homeassistant
+        id: garderobe_licht_brightness
+        entity_id: light.garderobe_licht
+        attribute: brightness
+        on_value:
+          - lvgl.slider.update:
+              id: garderobe_licht_slider
+              value: !lambda return x / 2.55;
+      
+      - platform: homeassistant
+        id: wohnzimmerschrank_brightness
+        entity_id: light.licht_wohnzimmerschrank
+        attribute: brightness
+        on_value:
+          - lvgl.slider.update:
+              id: wohnzimmerschrank_slider
+              value: !lambda return x / 2.55;
